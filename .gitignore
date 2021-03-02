@@ -34,3 +34,5 @@
 # visual studio
 .vs
 *.vcxproj.user
+x64
+algorithm/x64
