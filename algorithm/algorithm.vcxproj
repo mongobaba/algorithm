@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="algorithm.cpp" />
+    <ClCompile Include="code1_6_2.cpp" />
     <ClCompile Include="code_1_1.cpp" />
     <ClCompile Include="code_1_6_1.cpp" />
   </ItemGroup>
