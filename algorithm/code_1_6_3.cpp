@@ -77,6 +77,31 @@ namespace
 		}
 		return false;
 	}
+
+	// O(n^4) -> O(n^2*log2(n))
+	bool fast2(int m)
+	{
+		std::vector<int> sum;
+		const int space = n * n;
+		sum.reserve(space);
+		for (int a = 0; a < n; ++a)
+		{
+			for (int b = 0; b < n; ++b)
+			{
+				sum.push_back(k[a] + k[b]);
+			}
+		}
+		std::sort(sum.begin(), sum.end());
+
+		for (int i = 0, j = space - 1; i <= j;)
+		{
+			int add = sum[i] + sum[j];
+			if (add == m) return true;
+			else if (add > m) --j;
+			else ++i;
+		}
+		return false;
+	}
 }
 
 TEST(Code1_6_3, Simple)
@@ -98,4 +123,11 @@ TEST(Code1_6_3, Fast)
 	// 可以得出10，但是无法得出9
 	ASSERT_TRUE(fast(10));
 	ASSERT_FALSE(fast(9));
+}
+
+TEST(Code1_6_3, Fast2)
+{
+	// 可以得出10，但是无法得出9
+	ASSERT_TRUE(fast2(10));
+	ASSERT_FALSE(fast2(9));
 }
