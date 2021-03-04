@@ -60,6 +60,24 @@ namespace
 			return dp[N][W];
 		}
 	}
+
+	namespace fast2
+	{
+		// 内存优化版本
+		int dp[W + 1];
+
+		int simple()
+		{
+			for (int i = 0; i < N; i++)
+			{
+				for (int j = weight[i]; j <= W; j++)
+				{
+					dp[j] = (std::max)(dp[j], dp[j - weight[i]] + value[i]);
+				}
+			}
+			return dp[W];
+		}
+	}
 }
 
 TEST(Code2_3_2_1, Simple)
@@ -70,4 +88,9 @@ TEST(Code2_3_2_1, Simple)
 TEST(Code2_3_2_1, Fast1)
 {
 	ASSERT_EQ(10, fast1::simple());
+}
+
+TEST(Code2_3_2_1, Fast2)
+{
+	ASSERT_EQ(10, fast2::simple());
 }

@@ -139,6 +139,28 @@ namespace
 			return dp[N][W];	// 前N个，总总量不超过W
 		}
 	}
+
+	// 动态规划4
+	// 优化内存使用，只使用一个一维数组
+	namespace dp4
+	{
+		int dp[W + 1] = { 0 };
+
+		int simple()
+		{
+			for (int i = 0; i < N; ++i)
+			{
+				// 这一个循环中i不变，所以j不需要递减到0
+				for (int j = W; j >= weight[i]; --j)
+				{
+					// 只依赖于上方和左上方的值，因此可以直接覆盖上方的值，
+					// 并且依赖关系决定了只能从右往左计算
+					dp[j] = (std::max)(dp[j], dp[j - weight[i]] + value[i]);
+				}
+			}
+			return dp[W];
+		}
+	}
 }
 
 TEST(Code2_3_1, Simple)
@@ -159,4 +181,9 @@ TEST(Code2_3_1, DP2)
 TEST(Code2_3_1, DP3)
 {
 	ASSERT_EQ(7, dp3::simple());
+}
+
+TEST(Code2_3_1, DP4)
+{
+	ASSERT_EQ(7, dp4::simple());
 }
